@@ -6,6 +6,7 @@ import math
 import numpy as np
 import pandas as pd
 import plotly.graph_objs as go
+from textwrap import dedent
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -52,14 +53,24 @@ def format_number(n):
 # app layout
 app.layout = html.Div([
 	html.Div([
-		html.H2('Taxation of Sigmoidal Token Bonding Curves'),
-		html.Div('''
-				This interactive dashboard allows anyone to experiment with different fundraising scenarios using Sigmoid Token Bonding Curves.
-				'''
-				'''
-				The different parameters of the scenarios are couple in such a way that the chosen constraints always hold true. 
-				If you want to experiment without any enforced rules choose the last drop-down menu entry: "No Constraints".
-			''')]),
+		html.H2('Taxation of Sigmoidal Token Bonding Curves')]),
+	dcc.Markdown(dedent('''
+		This interactive dashboard refers to the different fundraising scenarios outlined in our [Medium Post](http://commonmark.org/help) about Sigmoidal Token Bonding Curves.
+		Please refer to the article for more details about the mathematical functions used for plotting.
+
+		Select a **Token Supply**, choose a **Scenario** and use the available sliders to see how the different parameters influence the curves. 
+		The parameters control the following properties:
+		* **a**: Maximum Token Price
+		* **b**: Curve Inflection Point
+		* **c**: Curve Slope
+		* **k**: Vertical Curve Displacement
+		* **h**: Horizontal Curve Displacement
+		* **t**: Tax Rate
+
+		For most scenarios, the parameters are coupled in such a way that negative taxes are not possible and the underlying scenario constraints always hold true. 
+		Choose the last dropwdown menu entry **No Constraints** to be able to experiment without any enforced rules.
+			''')),
+	html.Hr(),
 	html.Div([
 		html.Div([
 			html.H3('Settings'),
@@ -71,7 +82,7 @@ app.layout = html.Div([
 				step=supply_step,
 				value=max_supply/2
 			),
-			html.Div('Scenario Selection'),
+			html.Div('Scenario Selection:'),
 			dcc.Dropdown(
 				id='scenario-dropdown',
 				options=[
