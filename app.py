@@ -52,24 +52,58 @@ def format_number(n):
 
 # app layout
 app.layout = html.Div([
-	html.Div([
-		html.H2('Taxation of Sigmoidal Token Bonding Curves')]),
-	dcc.Markdown(dedent('''
-		This interactive dashboard refers to the different fundraising scenarios outlined in our [Medium Post](http://commonmark.org/help) about Sigmoidal Token Bonding Curves.
-		Please refer to the article for more details about the mathematical functions used for plotting.
-
-		Select a **Token Supply**, choose a **Scenario** and use the available sliders to see how the different parameters influence the curves. 
-		The parameters control the following properties:
-		* **a**: Maximum Token Price
-		* **b**: Curve Inflection Point
-		* **c**: Curve Slope
-		* **k**: Vertical Curve Displacement
-		* **h**: Horizontal Curve Displacement
-		* **t**: Tax Rate
-
-		For most scenarios, the parameters are coupled in such a way that negative taxes are not possible and the underlying scenario constraints always hold true. 
-		Choose the last dropwdown menu entry **No Constraints** to be able to experiment without any enforced rules.
-			''')),
+	html.Div(
+		[html.H2('Taxation of Sigmoidal Token Bonding Curves')]),
+		html.Div(
+			[html.P(
+				['This interactive dashboard refers to the different fundraising scenarios outlined in our ',
+				 html.A('Medium Post', href='http://commonmark.org/help'),
+				 ' about Sigmoidal Token Bonding Curves. Please refer to the article for more details about the mathematical functions used for plotting.',
+				]),
+			 html.P(
+			 	['Select a ',
+			 	 html.B('Token Supply'),
+			 	 ', choose a ',
+			 	 html.B('Scenario'),
+			 	 ' and use the sliders to see how the different parameters influence the curves.',
+			 	]),
+			 html.P(
+			 	['The parameters control the following properties:',
+			 	 html.Ul(
+			 	 	[html.Li(
+			 	 		[html.B('a'), 
+			 	 		 ': Maximum Token Price'],
+			 	 		style={'margin': '10px 5px 0 0'}),
+			 	 	 html.Li(
+			 	 		[html.B('b'),
+			 	 		 ': Curve Inflection Point'],
+			 	 		style={'margin': '0 5px 0 0'}),
+			 	 	 html.Li(
+			 	 	 	[html.B('c'),
+			 	 	 	 ': Curve Slope'],
+			 	 	 	style={'margin': '0 5px 0 0'}),
+			 	 	 html.Li(
+			 	 	 	[html.B('k'),
+			 	 	 	 ': Vertical Displacement'],
+			 	 	 	style={'margin': '0 5px 0 0'}),
+			 	 	 html.Li(
+			 	 	 	[html.B('h'),
+			 	 	 	 ': Horizontal Displacement'],
+			 	 	 	style={'margin': '0 5px 0 0'}),
+			 	 	 html.Li(
+			 	 	 	[html.B('t'),
+			 	 	 	 ': Tax Rate'],
+			 	 	 	style={'margin': '0 5px 0 0'})
+			 	 	],
+			 	 	style={'padding-left': '50px'})
+			 	 ]),
+			 html.P(
+			 	['''
+			 	 For most scenarios, the parameters are coupled in such a way that negative taxes are not possible and the underlying scenario constraints always hold true. 
+				 Choose the last dropwdown menu entry ''',
+				 html.B('No Constraints'),
+				 ' to be able to experiment without any enforced rules.'])
+			]),
 	html.Hr(),
 	html.Div([
 		html.Div([
@@ -765,8 +799,8 @@ def update_graphs(scenario_value, supply_value, a1_value, b1_value, c1_value,
           	yaxis={
           		'title': 'Price',
           		'rangemode': 'nonnegative',
-          		'hoverformat': '.2f'
-          	})
+          		'hoverformat': '.2f'},
+          	legend={'orientation': 'h'})
 		},
 		{'display': 'block'},
 		{'data': [col_trace1, col_trace2],
@@ -775,7 +809,8 @@ def update_graphs(scenario_value, supply_value, a1_value, b1_value, c1_value,
 		 	xaxis={'title': 'Supply'},
           	yaxis={
           		'title': 'Collateral',
-          		'rangemode': 'nonnegative'})
+          		'rangemode': 'nonnegative'},
+          	legend={'orientation': 'h'})
 		},
 		{'display': 'block'},
 		{'data': [tax_rate_trace, tax_amount_trace],
@@ -786,15 +821,20 @@ def update_graphs(scenario_value, supply_value, a1_value, b1_value, c1_value,
           		'title': 'Rate',
           		'range': [0.0, 1.0],
           		'rangemode': 'nonnegative',
-          		'hoverformat': '.2f'},
+          		'hoverformat': '.2f',
+          		'titlefont': {'color': '#2ca02c'},
+    			'tickfont': {'color': '#2ca02c'}},
           	yaxis2={
           		'title': 'Amount',
           		'rangemode': 'nonnegative',
           		'hoverformat': '.2f',
           		'overlaying': 'y',
-    			'side': 'right'}
-    		)
-		},
+    			'side': 'right',
+    			'showline': True,
+    			'titlefont': {'color': '#d62728'},
+    			'tickfont': {'color': '#d62728'}},
+    		legend={'orientation': 'h'}
+    		)},
 		{'display': 'block'},
 		{'data': [fund_rate_trace, fund_amount_trace],
 		 'layout': go.Layout(
@@ -803,12 +843,19 @@ def update_graphs(scenario_value, supply_value, a1_value, b1_value, c1_value,
           	yaxis={
           		'title': 'Rate',
           		'range': [0.0, 1.0],
-          		'rangemode': 'nonnegative'},
+          		'rangemode': 'nonnegative',
+          		'titlefont': {'color': '#2ca02c'},
+    			'tickfont': {'color': '#2ca02c'}},
           	yaxis2={
           		'title': 'Amount',
           		'rangemode': 'nonnegative',
           		'overlaying': 'y',
-    			'side': 'right'}
+    			'side': 'right',
+    			'showline': True,
+    			'titlefont': {'color': '#d62728'},
+    			'tickfont': {'color': '#d62728'}
+    			},
+    		legend={'orientation': 'h'}
     		)}
 	]
 
