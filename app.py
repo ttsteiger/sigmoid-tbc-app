@@ -30,9 +30,9 @@ min_price = 0
 max_price = 1000
 price_step = 10
 
-min_slope = 100000
-max_slope = max_supply*10000
-slope_step = 100000
+min_slope = 0.1e9
+max_slope = 100e9
+slope_step = 0.1e9
 
 k_min = 0
 k_max = 500
@@ -153,7 +153,7 @@ app.layout = html.Div([
 				 		min=min_slope,
 						max=max_slope,
 						step=slope_step,
-						value=max_slope/100),
+						value=10e09),
 				 	html.Div(
 				 		id='k1-slider-container',
 				 		children=[
@@ -202,7 +202,7 @@ app.layout = html.Div([
 				 		min=min_slope,
 						max=max_slope,
 						step=slope_step,
-						value=max_slope/100),
+						value=10e09),
 				 	html.Div(
 				 		id='h2-slider-container',
 				 		children=[
@@ -271,7 +271,7 @@ app.layout = html.Div([
 	Output('supply-slider-output-container', 'children'),
 	[Input('supply-slider', 'value')])
 def update_supply_slider_output(supply_value):
-	return 'Token Supply: {}'.format(supply_value)
+	return 'Token Supply: {}'.format(format_number(supply_value))
 
 
 # update a2-slider ranges based on a1-value
