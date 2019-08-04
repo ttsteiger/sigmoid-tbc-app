@@ -57,7 +57,7 @@ app.layout = html.Div([
 		html.Div(
 			[html.P(
 				['This interactive dashboard refers to the different fundraising scenarios outlined in our ',
-				 html.A('Medium Post', href='http://commonmark.org/help'),
+				 html.A('Medium Post', href='https://medium.com/molecule-blog/designing-different-fundraising-scenarios-with-sigmoidal-token-bonding-curves-ceafc734ed97'),
 				 ' about Sigmoidal Token Bonding Curves. Please refer to the article for more details about the mathematical functions used for plotting.',
 				]),
 			 html.P(
